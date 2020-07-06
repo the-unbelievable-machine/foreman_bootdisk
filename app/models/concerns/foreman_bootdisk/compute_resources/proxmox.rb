@@ -21,9 +21,10 @@ module ForemanBootdisk
           'boot' => 'dcn'
         }
         server.update(config_attributes)
-        server.ssh_options = { user: 'ansible', auth_methods: ['publickey'], keys: ['/home/foreman/.ssh/id_rsa'], port: 22001 }
+        server.ssh_options = { user: 'ansible', auth_methods: ['publickey'], keys: ['/home/foreman/.ssh/id_rsa'] }
         #server.ssh_ip_address = bridges.first.address
         server.ssh_ip_address = interfaces.first.address
+        server.ssh_port = 22001
         server.scp_upload(iso, '/var/lib/vz/template/iso/')
         server.reload
         storage = storages(server.node_id, 'iso')[0]
