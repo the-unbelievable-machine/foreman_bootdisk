@@ -15,7 +15,8 @@ module ForemanBootdisk
         }
         server.update(config_attributes)
         server.ssh_options = { password: fog_credentials[:pve_password] }
-        server.ssh_ip_address = bridges.first.address
+        #server.ssh_ip_address = bridges.first.address
+        server.ssh_ip_address = network_client.nodes.first.networks.all.first
         server.scp_upload(iso, '/var/lib/vz/template/iso/')
         server.reload
         storage = storages(server.node_id, 'iso')[0]
