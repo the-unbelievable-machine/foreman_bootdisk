@@ -7,6 +7,13 @@ module ForemanBootdisk
         super + [:bootdisk]
       end
 
+      def interfaces(node_id = default_node_id)
+        node = network_client.nodes.get node_id
+        node ||= network_client.nodes.first
+        interfaces = node.networks.all(type: 'eth')
+        interfaces.sort_by(&:iface)
+      end
+
       def iso_upload(iso, vm_uuid)
         server = find_vm_by_uuid(vm_uuid)
         config_attributes = {
@@ -16,7 +23,7 @@ module ForemanBootdisk
         server.update(config_attributes)
         server.ssh_options = { password: fog_credentials[:pve_password] }
         #server.ssh_ip_address = bridges.first.address
-        server.ssh_ip_address = network_client.nodes.first.networks.all.first
+        server.ssh_ip_address = interfaces.first.address
         server.scp_upload(iso, '/var/lib/vz/template/iso/')
         server.reload
         storage = storages(server.node_id, 'iso')[0]
