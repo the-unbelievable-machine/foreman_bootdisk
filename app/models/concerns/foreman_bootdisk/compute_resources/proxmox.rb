@@ -21,7 +21,7 @@ module ForemanBootdisk
           'boot' => 'dcn'
         }
         server.update(config_attributes)
-        server.ssh_options = { password: fog_credentials[:pve_password] }
+        server.ssh_options = { user: 'ansible', auth_methods: ["publickey"] }
         #server.ssh_ip_address = bridges.first.address
         server.ssh_ip_address = interfaces.first.address
         server.scp_upload(iso, '/var/lib/vz/template/iso/')
