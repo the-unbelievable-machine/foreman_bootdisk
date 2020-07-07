@@ -43,7 +43,7 @@ module ForemanBootdisk
 
       def iso_detach(vm_uuid)
         server = find_vm_by_uuid(vm_uuid)
-        config_hash = { ide2: "media=cdrom, file=none" }
+        config_hash = { ide2: "none,media=cdrom" }
         server.update(config_hash)
       end
     end
