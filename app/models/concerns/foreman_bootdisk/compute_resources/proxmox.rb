@@ -17,7 +17,7 @@ module ForemanBootdisk
       def iso_upload(iso, vm_uuid)
         server = find_vm_by_uuid(vm_uuid)
         config_attributes = {
-          'bootdisk' => 'ide2',
+          'bootdisk' => 'scsi0',
           'boot' => 'cnd'
         }
         server.update(config_attributes)
