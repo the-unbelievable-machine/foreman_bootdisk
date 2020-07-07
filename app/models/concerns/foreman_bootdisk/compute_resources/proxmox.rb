@@ -18,7 +18,7 @@ module ForemanBootdisk
         server = find_vm_by_uuid(vm_uuid)
         config_attributes = {
           'bootdisk' => 'ide2',
-          'boot' => 'dcn'
+          'boot' => 'cnd'
         }
         server.update(config_attributes)
         server.ssh_options = { auth_methods: ['publickey'], keys: ['/home/foreman/.ssh/id_rsa'] }
