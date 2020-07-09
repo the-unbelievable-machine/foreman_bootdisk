@@ -24,7 +24,6 @@ module ForemanBootdisk
         server.ssh_options = { auth_methods: ['publickey'], keys: ['/home/foreman/.ssh/id_rsa'] }
         #server.ssh_ip_address = bridges.first.address
         server.ssh_ip_address = interfaces.first.address
-        server.ssh_port = 22001
         server.username = 'ansible'
         server.private_key_path = '/home/foreman/.ssh/id_rsa'
         server.scp_upload(iso, '/var/lib/vz/template/iso/')
